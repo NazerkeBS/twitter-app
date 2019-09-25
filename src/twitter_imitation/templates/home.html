@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <style>
+        .container {
+            width:100%;
+            font-size: 0;
+         }
+        .left, .middle, .right {
+            display: inline-block;
+            *display: inline; zoom: 1;
+            vertical-align: top;
+            font-size: 12px;
+            padding:20px
+            }
+        .left {
+            width: 20%;
+            }
+        .middle {
+            width: 40%;
+            }
+        .right {
+            width: 15%;
+            }
+         a {
+            text-decoration: none;
+            text-align: center;
+            padding-top: 8px;
+         }
+
+        .input {
+            margin: 14px auto;
+            display: block;
+            border-radius: 5px;
+            border:1px solid gray;
+            font-size: 16px;
+            font-family:"Montserrat", sans-serif;
+        }
+        .logout-btn, .profile-btn{
+            width:120px;
+            height: 40px;
+            background: #38A1F3;
+            border-radius: 10px;
+            margin: 14px auto;
+            display: block;
+            font-family:"Montserrat", sans-serif;
+            font-size: 16px;
+            border-color: #3498db;
+            color: white;
+            cursor:pointer;
+        }
+         .tweet-btn{
+            width:60px;
+            height: 30px;
+            background: #38A1F3;
+            border-radius: 10px;
+            margin: 14px auto;
+            display: inline-block;
+            float: right;
+            font-family:"Montserrat", sans-serif;
+            font-size: 14px;
+            border-color: #3498db;
+            color: white;
+            cursor:pointer;
+        }
+        .image-attach{
+            width:60px;
+            height: 30px;
+            background: #38A1F3;
+            border-radius: 10px;
+            margin: 14px auto;
+            display: inline-block;
+            text-align: center;
+            font-family:"Montserrat", sans-serif;
+            font-size: 14px;
+            border-color:  #3498db;
+            color: white;
+            cursor:pointer;
+        }
+        .one-tweet, h4{
+            margin: 14px auto;
+            display: block;
+            padding: 5px;
+            margin-bottom: 10px;
+            border-radius:5px;
+            font-family: "Helvetica";
+            font-size: 14px;
+            background: white ;
+            border:1px solid #38A1F3;
+        }
+        .delete-btn, .edit-btn{
+            width:56px;
+            height: 26px;
+            background: white;
+            border-radius: 10px;
+            display: inline-block;
+            font-family:"Montserrat", sans-serif;
+            font-size: 14px;
+            color: #38A1F3;
+            border:1px solid #38A1F3;
+            cursor:pointer;
+        }
+        .prepared_text{
+            text-decoration: none;
+            border: 1px solid  #38A1F3;
+            font-size:14px;
+            font-family:"Montserrat", sans-serif;
+            color: black;
+        }
+        .hidden-btn{
+            float:right;
+        }
+        .all-users-btn, .following-btn{
+            width:120px;
+            height: 30px;
+            background: #38A1F3;
+            border-radius: 10px;
+            margin: 14px auto;
+            display: inline-block;
+            vertical-align: middle;
+            font-family:"Montserrat", sans-serif;
+            font-size: 14px;
+            border-color: #3498db;
+            color: white;
+            cursor:pointer;
+        }
+        .following-btn{
+            width:90px;
+            height: 30px;
+        }
+        .box{
+             display: inline-block;
+             vertical-align: top;
+             margin: 5px auto;
+        }
+        .user{
+            display: inline-block;
+            float:left;
+            float-size: 16px;
+            font-family:"Montserrat", sans-serif;
+            color: #3498db;
+            margin-right: 10px;
+        }
+        .user-follow-btn{
+            float:right;
+        }
+        .follow-unfollow-btn{
+            display:inline-block;
+            color:#3498db;
+        }
+        .followed {
+            background: #3498db;
+            color:white;
+        }
+        .unfollowed {
+            background: white;
+            color: #3498db;
+        }
+        .logo{
+             display: block;
+             margin: 14px auto;
+        }
+
+        .center {
+            margin: auto;
+            width: 80%;
+            padding: 20px;
+            color: #3498db;
+            float-size: 20px;
+            font-family:"Montserrat", sans-serif;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        .hideform {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <div class="left_box">
+                <img src="/static/twitter_logo.png" class="logo" alt="Twitter Logo" width="60" height="60">
+                 <form method="GET" action="/profile/{{name}}">
+                    <input class="profile-btn" id="show" type="button" value="Profile">
+                 </form>
+
+                <a class="logout-btn"  href="/logout">Log out</a>
+                <!-- hidden profile form -->
+                <div class="center hideform">
+                </div>
+                <!-- hidden profile form -->
+
+            </div>
+
+        </div>
+        <div class="middle">
+            <h4>Hello, {{name}}! </h4>
+            <form method="POST" action="/tweet" enctype="multipart/form-data">
+                <textarea class="input" placeholder="What's happening?" rows="4" cols="50" name="tweet" required ></textarea>
+                <label class="image-attach" for="imageInput" > Image </label>
+                <input type="file" style="display: none"  id="imageInput" name="img_file"/>
+
+                <input class="tweet-btn" type="submit" value="Tweet">
+            </form>
+
+                {% for i in tweets %}
+            <div class="container">
+                <div class="one-tweet">
+                    <div> {{ i[2] }}: </div>
+                    <div class="timestamp"> <p>{{ i[0] }} </p> </div>
+                    <textarea class="prepared_text" id="dis_text" rows="4" cols="48" disabled="true">
+                        {{ i[1] }}
+                    </textarea>
+                    {% if i[3]  is defined  %}
+                     <img src= "{{i[3]}}"  width="300"  height="280" >
+                    {% endif %}
+                    {% if i[2] == name %}
+                     <input class="delete-btn" id="rem" value="Delete">
+                     <input class="edit-btn" id="edit" value="Edit">
+                     <input type="submit" class="hidden-btn" id="hidden" value="Update" style="display: none;">
+                    {% endif %}
+                </div>
+            </div>
+                {% endfor %}
+
+        </div>
+        <div class="right">
+            <div class="left_box">
+                <form method="GET" action="/users">
+                    <input class="all-users-btn" type="submit" value="All users">
+                </form>
+                {% for user in all_users %}
+                <div class="box">
+                    <div class="user"> {{user[0]}}  </div>
+                <div class="user-follow-btn">
+                    <input type="submit" class="follow-unfollow-btn" id="follow-unfollow" value="{{ user[1] }}">
+                </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+    </div>
+</body>
+</html>
+<script>
+    var success = function() {
+        window.location="/"
+    };
+    var followers = function() {
+        window.location="/users/following"
+    };
+     var unfollowers = function() {
+        window.location="/users/following"
+    };
+
+    $(document).on('click','#rem',function() {
+        $(this).closest( ".one-tweet" ).remove();
+        var v = $(this).closest(".one-tweet");
+        var content = v[0].innerText;
+        $.ajax({
+        url: '/tweet',
+        type: 'DELETE',
+        data: {'method': 'DELETE', 'tweet': content},
+        success: success
+        })
+    });
+
+     $(document).on('click','#edit',function() {
+        $("textarea", $(this).parent()).prop("disabled", false);
+        $(".hidden-btn").css("display", "block");
+        $(document).on('click','#hidden',function() {
+            content = $("textarea", $(this).parent()).val();
+            var temp = $(".timestamp").closest()
+            var timestamp = temp.prevObject[0].innerText
+            $.ajax({
+                url: '/tweet',
+                type: 'PUT',
+                data: {'method': 'PUT', 'tweet': content, 'timestamp': timestamp},
+                success: success
+            })
+         })
+     });
+
+      $(document).on('click','#follow-unfollow',function() {
+        var text = $(this).closest(".follow-unfollow-btn").val()
+        if (text == "follow"){
+            var user_follow = $(this).closest(".user-follow-btn").prev()[0].innerText
+            $(this).closest(".follow-unfollow-btn").removeClass("unfollowed")
+            $(this).closest(".follow-unfollow-btn").val("unfollow").addClass("followed")
+            $.ajax({
+                url: '/users/follow',
+                type: 'POST',
+                data: {'method': 'POST', 'data': user_follow, 'status': 'unfollow'},
+                success: followers
+            })
+
+        }else {
+            var user_unfollow = $(this).closest(".user-follow-btn").prev()[0].innerText
+            $(this).closest(".follow-unfollow-btn").removeClass("followed")
+            $(this).closest(".follow-unfollow-btn").val("follow").addClass("unfollowed")
+            $.ajax({
+                url: '/users/unfollow',
+                type: 'POST',
+                data: {'method': 'POST', 'data': user_unfollow, 'status': 'follow'},
+                success: unfollowers
+            })
+        }
+      });
+
+      function loadProfile() {
+            $('.center').show().load("/profile");
+            $(this).hide();
+            location.hash='profile';
+      }
+
+       $('#show').on('click', function () {
+            loadProfile();
+       })
+
+       $(document).on('load', function() {
+            if (location.hash === '#profile') {
+                loadProfile();
+            }
+       });
+
+</script>

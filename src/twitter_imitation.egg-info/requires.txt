@@ -1,0 +1,8 @@
+flask
+flask-login
+oauthlib
+requests
+redis
+boto3
+pre-commit
+pytest

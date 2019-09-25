@@ -1,0 +1,17 @@
+<button id="close" style="float: right;">X</button>
+<form>
+    <div><img src="{{profile_image}}" width="80" height="100"></div>
+    <br>
+    <div> Name: {{name}}</div>
+    <br>
+    <div> Email: {{email}}</div>
+
+    <br><br>
+</form>
+<script>
+    $('#close').on('click', function () {
+            $('.center').hide();
+            $('#show').show();
+            location.hash = '';
+        })
+</script>

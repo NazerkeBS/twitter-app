@@ -1,0 +1,3 @@
+[console_scripts]
+twitter-imitation = twitter_imitation.twitter_app:main
+

@@ -1,0 +1,15 @@
+MANIFEST.in
+README.md
+setup.py
+src/twitter_imitation/__init__.py
+src/twitter_imitation/twitter_app.py
+src/twitter_imitation.egg-info/PKG-INFO
+src/twitter_imitation.egg-info/SOURCES.txt
+src/twitter_imitation.egg-info/dependency_links.txt
+src/twitter_imitation.egg-info/entry_points.txt
+src/twitter_imitation.egg-info/requires.txt
+src/twitter_imitation.egg-info/top_level.txt
+src/twitter_imitation/static/twitter_logo.png
+src/twitter_imitation/templates/home.html
+src/twitter_imitation/templates/index.html
+src/twitter_imitation/templates/profile.html
