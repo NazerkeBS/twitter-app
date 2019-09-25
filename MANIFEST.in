@@ -1,0 +1,2 @@
+recursive-include src/twitter_imitation/templates *
+recursive-include src/twitter_imitation/static *
